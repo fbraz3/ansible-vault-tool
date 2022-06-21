@@ -2,7 +2,8 @@ var express = require('express');
 var router = express.Router();
 
 router.get('/', function(req, res, next) {
-  res.render('index', {host: req.headers.host});
+  let the_host = req.headers['x-forwarded-host'] || req.headers.host
+  res.render('index', {host: the_host});
 });
 
 module.exports = router;
