@@ -15,7 +15,13 @@
   <%}%>
 
   <%if (config_adsense) {%>
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=<%= config_adsense %>" crossorigin="anonymous"></script>
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>
+        (adsbygoogle = window.adsbygoogle || []).push({
+              google_ad_client: "<%= config_adsense %>",
+              enable_page_level_ads: true
+        });
+    </script>
   <%}%>
 
   <meta charset="utf-8">
