@@ -2,14 +2,21 @@
 <html>
 
 <head>
-  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-158110136-1"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
 
-    gtag('config', 'UA-158110136-1');
-  </script>
+  <%if (config_gtag) {%>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=<%= config_gtag %>"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', '<%= config_gtag %>');
+    </script>
+  <%}%>
+
+  <%if (config_adsense) {%>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=<%= config_adsense %>" crossorigin="anonymous"></script>
+  <%}%>
 
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
