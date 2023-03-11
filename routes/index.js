@@ -10,7 +10,7 @@ router.get('/', function(req, res, next) {
   res.render('index', {
     host: the_host,
     config_gtag: config_gtag,
-    config_adsense: config_adsense,
+    config_adsense: config_adsense
     config_repo: config_repo
   });
 });
