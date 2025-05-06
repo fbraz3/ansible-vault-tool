@@ -3,11 +3,11 @@
 This is a simple online **Ansible Vault** encryption/decryption tool.
 You can encrypt or decrypt any information using the online interface or API tools provided.
 
+For more technical information, please visit our  [DeepWiki Page](https://deepwiki.com/fbraz3/ansible-vault-tool) (AI generated).
+
 ## Objective
 
 The goal of this project is to provide a secure and user-friendly tool for encrypting and decrypting data using **Ansible Vault**.
-
-Ask Devin AI about this project on [DeepWiki](https://deepwiki.com/fbraz3/ansible-vault-tool).
 
 ## Usage
 
