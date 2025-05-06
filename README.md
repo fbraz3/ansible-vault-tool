@@ -14,7 +14,7 @@ Ask Devin AI about this project on [DeepWiki](https://deepwiki.com/fbraz3/ansibl
 The quickest way to get started is by using the online interface.
 [https://ansible-vault.braz.dev/](https://ansible-vault.braz.dev/)
 
-⚠️ No data is stored or logged when running the project locally or using the online interface.
+⚠️ [No data is stored or logged](https://deepwiki.com/search/in-what-part-of-the-code-we-ca_addee82c-6a9c-4274-b08e-d952fc75b6b4) when running the project locally or using the online interface.
 
 ### Local Setup
 1. Clone the repository.
