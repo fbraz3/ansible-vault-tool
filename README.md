@@ -1,6 +1,5 @@
+[![Docker Build](https://github.com/fbraz3/ansible-vault-tool/actions/workflows/docker-build.yml/badge.svg)](https://github.com/fbraz3/ansible-vault-tool/actions/workflows/docker-build.yml)
 [![Docker Image](https://img.shields.io/docker/v/fbraz3/ansible-vault-tool?label=Docker%20Image&logo=docker&sort=semver)](https://hub.docker.com/r/fbraz3/ansible-vault-tool)
-[![Docker Pulls](https://img.shields.io/docker/pulls/fbraz3/ansible-vault-tool?logo=docker)](https://hub.docker.com/r/fbraz3/ansible-vault-tool)
-[![Image Size](https://img.shields.io/docker/image-size/fbraz3/ansible-vault-tool/latest?logo=docker)](https://hub.docker.com/r/fbraz3/ansible-vault-tool)
 [![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/fbraz3/ansible-vault-tool)
 
 # Braz Ansible Vault Tool
