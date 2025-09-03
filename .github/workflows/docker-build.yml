@@ -3,15 +3,6 @@ name: Weekly Docker Build
 on:
   schedule:
     - cron: '0 9 * * 1'
-  push:
-    branches: [ master ]
-    paths:
-      - 'Dockerfile'
-      - 'package.json'
-      - 'app.js'
-      - 'routes/**'
-      - 'views/**'
-      - 'public/**'
   workflow_dispatch:
 
 env:
