@@ -46,6 +46,7 @@ Ready-to-use Docker images are automatically built weekly and available on Docke
 ```bash
 # Run directly with Docker
 docker run -p 3000:3000 fbraz3/ansible-vault-tool:latest
+```
 
 #### Docker Compose Example
 ```yaml
