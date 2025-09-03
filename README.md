@@ -14,7 +14,7 @@ The goal of this project is to provide a secure and user-friendly tool for encry
 The quickest way to get started is by using the online interface.
 [https://ansible-vault.braz.dev/](https://ansible-vault.braz.dev/)
 
-⚠️ [No data is stored or logged](https://deepwiki.com/search/in-what-part-of-the-code-we-ca_addee82c-6a9c-4274-b08e-d952fc75b6b4) when running the project locally or using the online interface.
+⚠️ [No data is stored or logged](https://deepwiki.com/search/how-can-i-be-sure-no-data-is-b_207e875d-dab5-44f7-a968-2b0092013dab) when running the project locally or using the online interface.
 
 ### Local Setup
 1. Clone the repository.
