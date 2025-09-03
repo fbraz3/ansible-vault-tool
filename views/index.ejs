@@ -43,7 +43,7 @@
 
 <body>
   <nav class="navbar navbar-expand-lg navbar-modern fixed-top">
-    <div class="container">
+    <div class="container">`
       <a class="navbar-brand" href="/">
         <i class="fas fa-shield-alt me-2"></i>Ansible Vault Tool
       </a>
@@ -73,6 +73,13 @@
               <i class="fab fa-github me-1"></i>GitHub
             </a>
           </li>
+          <%if (config_donation) {%>
+          <li class="nav-item">
+            <a class="nav-link text-white" href="<%= config_donation %>" target="_blank">
+              <i class="fas fa-heart me-1 text-danger"></i>Sponsor
+            </a>
+          </li>
+          <%}%>
         </ul>
       </div>
     </div>
@@ -123,8 +130,8 @@
       </div>
     </section>
 
-    <!-- Donation Banner (if configured) -->
     <%if (config_donation) {%>
+      <!-- Donation Banner (if configured) -->
       <div class="donation-banner" id="donationBanner">
         <button class="close-donation" onclick="hideDonationBanner()" aria-label="Close donation banner">
           <i class="fas fa-times"></i>
@@ -302,11 +309,8 @@
     </div>
   </footer>
 
-  <!-- Bootstrap 5 JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-  <!-- jQuery -->
   <script src="https://code.jquery.com/jquery-3.6.0.min.js" crossorigin="anonymous"></script>
-  <!-- Custom Scripts -->
   <script src='/js/download.js' crossorigin="anonymous"></script>
   <script src='/js/main.js' crossorigin="anonymous"></script>
   

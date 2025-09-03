@@ -25,34 +25,6 @@ The quickest way to get started is by using the online interface.
    ```
 3. Access the application at `http://localhost:3000`.
 
-### Configuration Options
-
-The application supports several optional environment variables:
-
-- `CONFIG_GTAG`: Google Analytics tracking ID
-- `CONFIG_ADSENSE`: Google AdSense client ID  
-- `CONFIG_REPO`: Repository URL (defaults to GitHub repo)
-- `CONFIG_DONATION`: Donation/Sponsorship link URL (e.g., GitHub Sponsors, Buy me a coffee, etc.)
-
-Example with GitHub Sponsors:
-```bash
-CONFIG_DONATION="https://github.com/sponsors/fbraz3" npm start
-```
-
-Other supported platforms:
-```bash
-# Buy me a Coffee
-CONFIG_DONATION="https://www.buymeacoffee.com/yourusername" npm start
-
-# PayPal
-CONFIG_DONATION="https://paypal.me/yourusername" npm start
-
-# Ko-fi
-CONFIG_DONATION="https://ko-fi.com/yourusername" npm start
-```
-
-The sponsorship banner will only appear when `CONFIG_DONATION` is set and provides a subtle, elegant way to request support for the project.
-
 ### Docker Setup
 1. Navigate to the `docker` directory:
    ```
