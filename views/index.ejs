@@ -30,153 +30,363 @@
   <meta name="keywords" content="ansible vault, encrypt, decrypt, encryption, decryption, ansible vault tool, ansible vault encryption / decryption tool, online ansible vault tool, ansiblevault, Ansible Vault Decryptor">
   <meta name="robots" content="index,follow">
   <title>Ansible Vault Encryption / Decryption Tool - Home</title>
-  <link rel='stylesheet' href='/css/bootstrap.min.css' />
+  
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <!-- Custom Modern CSS -->
+  <link rel='stylesheet' href='/css/style.css' />
 </head>
 
 <body>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <nav class="navbar navbar-expand-lg navbar-modern fixed-top">
     <div class="container">
-      <a class="navbar-brand" href="/">Ansible Vault Tool</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01"
-        aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+      <a class="navbar-brand" href="/">
+        <i class="fas fa-shield-alt me-2"></i>Ansible Vault Tool
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="collapse navbar-collapse" id="navbarColor01">
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link text-white" href="#home">
+              <i class="fas fa-home me-1"></i>Home
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" href="#tool">
+              <i class="fas fa-tools me-1"></i>Tool
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" href="#api">
+              <i class="fas fa-code me-1"></i>API
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" href="<%= config_repo %>" target="_blank">
+              <i class="fab fa-github me-1"></i>GitHub
+            </a>
           </li>
         </ul>
       </div>
     </div>
   </nav>
-  <div class="container">
-    <div class="card text-white bg-primary mt-4">
-      <div class="card-header">Ansible Vault <strong>Encryption / Decryption</strong> Tool</div>
-      <div class="card-body">
-        <form>
-          <div class="form-group">
-            <label for="passphrase">Passphrase</label>
-            <input type="password" class="form-control" id="passphrase" placeholder="Enter your password...">
+
+  <div class="container mt-5 pt-5">
+    <!-- Welcome Information Section -->
+    <section id="home" class="card card-modern mb-4">
+      <div class="card-body card-body-modern text-center">
+        <h1 class="mb-4">
+          <i class="fas fa-shield-alt text-primary me-3"></i>Ansible Vault Tool
+        </h1>
+        <p class="lead mb-4">
+          Modern, secure online <a href="https://docs.ansible.com/ansible/latest/cli/ansible-vault.html" 
+          target="_blank" class="text-decoration-none">Ansible Vault</a> encryption/decryption tool. 
+          Encrypt or decrypt any information using our intuitive interface or API tools.
+        </p>
+        
+        <div class="row g-4">
+          <div class="col-md-4">
+            <div class="feature-item text-center">
+              <div class="feature-icon">
+                <i class="fas fa-shield-alt"></i>
+              </div>
+              <h5 class="feature-title">Secure</h5>
+              <p class="feature-description">We do not store, log or use your data</p>
+            </div>
           </div>
-          <div class="form-group">
-            <label for="content">Content to encrypt / decrypt</label>
-            <ul class="nav nav-tabs">
+          <div class="col-md-4">
+            <div class="feature-item text-center">
+              <div class="feature-icon">
+                <i class="fas fa-code"></i>
+              </div>
+              <h5 class="feature-title">Open Source</h5>
+              <p class="feature-description">Source code available on <a href="<%= config_repo %>" target="_blank" class="text-decoration-none text-primary fw-bold">GitHub</a></p>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="feature-item text-center">
+              <div class="feature-icon">
+                <i class="fas fa-cogs"></i>
+              </div>
+              <h5 class="feature-title">API Ready</h5>
+              <p class="feature-description">RESTful API for automation</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Donation Banner (if configured) -->
+    <%if (config_donation) {%>
+      <div class="donation-banner" id="donationBanner">
+        <button class="close-donation" onclick="hideDonationBanner()" aria-label="Close donation banner">
+          <i class="fas fa-times"></i>
+        </button>
+        <div class="donation-content">
+          <h6><i class="fab fa-github me-2"></i>Sponsor This Project</h6>
+          <p>Help maintain and improve this free tool with your support</p>
+          <a href="<%= config_donation %>" target="_blank" class="btn">
+            <i class="fas fa-heart me-2"></i>Become a Sponsor
+          </a>
+        </div>
+      </div>
+    <%}%>
+
+    <!-- Main Tool Card -->
+    <section id="tool" class="card card-modern">
+      <div class="card-header card-header-modern">
+        <i class="fas fa-tools me-2"></i>Encryption / Decryption Tool
+      </div>
+      <div class="card-body card-body-modern">
+        <form>
+          <div class="mb-4">
+            <label for="passphrase" class="form-label">
+              <i class="fas fa-key me-2"></i>Passphrase
+            </label>
+            <input type="password" class="form-control form-control-modern" id="passphrase" 
+                   placeholder="Enter your secure password...">
+          </div>
+          
+          <div class="mb-4">
+            <label class="form-label">
+              <i class="fas fa-file-alt me-2"></i>Content to encrypt / decrypt
+            </label>
+            <ul class="nav nav-tabs nav-tabs-modern mb-3">
               <li class="nav-item">
-                <a class="nav-link active" data-toggle="tab" href="#content_text_tab">Text</a>
+                <a class="nav-link active" data-bs-toggle="tab" href="#content_text_tab">
+                  <i class="fas fa-edit me-1"></i>Text
+                </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#content_file_tab">File</a>
+                <a class="nav-link" data-bs-toggle="tab" href="#content_file_tab">
+                  <i class="fas fa-upload me-1"></i>File
+                </a>
               </li>
             </ul>
-            <div class="tab-content mt-1">
+            <div class="tab-content">
               <div class="tab-pane fade active show" id="content_text_tab">
-                <textarea required class="form-control" id="content_text" rows="7"
+                <textarea required class="form-control form-control-modern" id="content_text" rows="8"
                   placeholder="Enter your text for encryption or decryption..."></textarea>
               </div>
               <div class="tab-pane fade" id="content_file_tab">
-                <input type="file" class="form-control-file" id="content_file" aria-describedby="fileHelp">
-                <small id="fileHelp" class="form-text text-muted">Upload the file you want to encrypt/decrypt.</small>
+                <input type="file" class="form-control form-control-modern" id="content_file" aria-describedby="fileHelp">
+                <small id="fileHelp" class="form-text text-muted mt-2">
+                  <i class="fas fa-info-circle me-1"></i>Upload the file you want to encrypt/decrypt.
+                </small>
               </div>
             </div>
           </div>
-          <div class="btn-group encrypt_decrypt_buttons" role="group">
-            <button type="button" data-action="encrypt" class="btn btn-primary btn-lg btn_encrypt_decrypt">Encrypt</button>
-            <button type="button" data-action="decrypt" class="btn btn-primary btn-lg btn_encrypt_decrypt">Decrypt</button>
+          
+          <div class="d-flex gap-3 mb-4 encrypt_decrypt_buttons">
+            <button type="button" data-action="encrypt" class="btn btn-primary-modern btn-modern btn_encrypt_decrypt flex-fill">
+              <i class="fas fa-lock me-2"></i>Encrypt
+            </button>
+            <button type="button" data-action="decrypt" class="btn btn-secondary-modern btn-modern btn_encrypt_decrypt flex-fill">
+              <i class="fas fa-unlock me-2"></i>Decrypt
+            </button>
           </div>
-          <div class="progress" style="display: none;" id="loading">
-            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div>
+          
+          <div class="progress progress-modern" style="display: none;" id="loading">
+            <div class="progress-bar progress-bar-modern progress-bar-striped progress-bar-animated" 
+                 role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div>
           </div>
         </form>
       </div>
-    </div>
+    </section>
 
-    <div class="card text-white bg-primary mt-4" id="response_holder" style="display:none">
-      <div class="card-header">Response Result <button onclick="document.getElementById('response_holder').style.display='none';"type="button" class="close float-right btn btn-sm" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>
-      <div class="card-body">
-        <h4 class="card-title response_msg"></h4>
-        <div class="btn-group export_buttons" role="group">
-          <button class="btn btn-primary" id="btn_copy">Copy to clipboard</button>
-          <button class="btn btn-primary" id="btn_download">Download as file</button>
+    <!-- Response Card -->
+    <div class="card card-modern mt-modern" id="response_holder" style="display:none">
+      <div class="card-header card-header-modern d-flex justify-content-between align-items-center">
+        <span><i class="fas fa-check-circle me-2"></i>Response Result</span>
+        <button onclick="document.getElementById('response_holder').style.display='none';" 
+                type="button" class="btn-close btn-close-white" aria-label="Close"></button>
+      </div>
+      <div class="card-body card-body-modern">
+        <h4 class="card-title response_msg mb-4"></h4>
+        <div class="d-flex gap-3 mb-3 export_buttons">
+          <button class="btn btn-primary-modern btn-modern" id="btn_copy">
+            <i class="fas fa-copy me-2"></i>Copy to clipboard
+          </button>
+          <button class="btn btn-secondary-modern btn-modern" id="btn_download">
+            <i class="fas fa-download me-2"></i>Download as file
+          </button>
         </div>
-        <textarea class="form-control response_text mt-2" rows="15"></textarea>
+        <textarea class="form-control form-control-modern response_text" rows="15"></textarea>
       </div>
     </div>
 
-    <div class="jumbotron mt-5">
-      <h1 class="display-4">Welcome,</h1>
-      <p class="lead">This is a simple online <a href="https://docs.ansible.com/ansible/latest/cli/ansible-vault.html" target="_blank">Ansible Vault</a> encryption/decryption tool. You may encrypt or decrypt any information using online interface or api tools provided.</p>
-      <hr class="my-4">
-      <p><strong>Important</strong>: We do not use, store or log the data you encrypt or decrypt.</p>
-      <hr class="my-4">
-      <p class="text-info">This is an <strong>open source</strong> project. The source code could be found at <a href="<%= config_repo %>" target="_blank"><%= config_repo %></a></p>
-    </div>
-
-    <div class="row">
-      <div class="col-md-6">
-        <div class="card bg-dark">
-          <div class="card-header">API Request Example (Encrypt)</div>
+    <!-- API Examples -->
+    <section id="api" class="row g-4 mt-modern">
+      <div class="col-lg-6">
+        <div class="card api-card h-100">
+          <div class="card-header">
+            <i class="fas fa-lock me-2"></i>API Request Example (Encrypt)
+          </div>
           <div class="card-body">
-            <h4 class="card-title"><%= host %>/api</h4>
-            <strong>POST Data:</strong><br/>
-            <code>
-              {<br/>
-                &nbsp;&nbsp;"action": "encrypt",<br/>
-                &nbsp;&nbsp;"content": "information to be encrypted by ansible vault",<br/>
-                &nbsp;&nbsp;"passphrase": "test"<br/>
-              }<br/>
-            </code>
-            <br/>
-            <strong>Response Data:</strong>
-            <code>
-              <br/>{
-                <br/>&nbsp;&nbsp;"result": "$ANSIBLE_VAULT;1.1;AES256\n32393430393531343931666361643831656232336361346331663439376662353735646230316631\n3165663238306636336463393631636633313537343635320a656164653836353933373866616339\n37376561663666323738383839316562313632346365613962323562633538323630653735613264\n6432343766326532650a376538623831356330383265313034326630343434343635343061613730\n36636239646162643762653135636632363762313763383766303061363630333165656430633662\n6635353763666130396339363732643062326336336336623036",
-                <br/>&nbsp;&nbsp;"status": "success",
-                <br/>&nbsp;&nbsp;"msg": "Your data was successfully encrypted!"
-              <br/>}
-            </code>
+            <h5 class="card-title text-success">
+              <i class="fas fa-server me-2"></i><%= host %>/api
+            </h5>
+            <div class="mt-3">
+              <strong>POST Data:</strong>
+              <pre class="mt-2"><code>{
+  "action": "encrypt",
+  "content": "information to be encrypted by ansible vault",
+  "passphrase": "test"
+}</code></pre>
+            </div>
+            <div class="mt-4">
+              <strong>Response Data:</strong>
+              <pre class="mt-2"><code>{
+  "result": "$ANSIBLE_VAULT;1.1;AES256\n32393430393531343931666361643831656232336361346331663439376662353735646230316631\n3165663238306636336463393631636633313537343635320a656164653836353933373866616339\n37376561663666323738383839316562313632346365613962323562633538323630653735613264\n6432343766326532650a376538623831356330383265313034326630343434343635343061613730\n36636239646162643762653135636632363762313763383766303061363630333165656430633662\n6635353763666130396339363732643062326336336336623036",
+  "status": "success",
+  "msg": "Your data was successfully encrypted!"
+}</code></pre>
+            </div>
           </div>
         </div>
       </div>
-      <div class="col-md-6">
-        <div class="card bg-dark">
-          <div class="card-header">API Request Example (Decrypt)</div>
+      <div class="col-lg-6">
+        <div class="card api-card h-100">
+          <div class="card-header">
+            <i class="fas fa-unlock me-2"></i>API Request Example (Decrypt)
+          </div>
           <div class="card-body">
-            <h4 class="card-title"><%= host %>/api</h4>
-            <strong>Post Data:</strong>
-            <code>
-              <br/>{
-                <br/>&nbsp;&nbsp;"action": "decrypt",
-                <br/>&nbsp;&nbsp;"content": "$ANSIBLE_VAULT;1.1;AES256\n32393430393531343931666361643831656232336361346331663439376662353735646230316631\n3165663238306636336463393631636633313537343635320a656164653836353933373866616339\n37376561663666323738383839316562313632346365613962323562633538323630653735613264\n6432343766326532650a376538623831356330383265313034326630343434343635343061613730\n36636239646162643762653135636632363762313763383766303061363630333165656430633662\n6635353763666130396339363732643062326336336336623036",
-                <br/>&nbsp;&nbsp;"passphrase": "test"
-              <br/>}
-            </code>
-            <br/><br/>
-            <strong>Response Data:</strong>
-            <code>
-              <br/>{
-                <br/>&nbsp;&nbsp;"result": "information to be encrypted by ansible vault",
-                <br/>&nbsp;&nbsp;"status": "success",
-                <br/>&nbsp;&nbsp;"msg": "Your data was successfully decrypted!"
-              <br/>}
-            </code>
+            <h5 class="card-title text-success">
+              <i class="fas fa-server me-2"></i><%= host %>/api
+            </h5>
+            <div class="mt-3">
+              <strong>POST Data:</strong>
+              <pre class="mt-2"><code>{
+  "action": "decrypt",
+  "content": "$ANSIBLE_VAULT;1.1;AES256\n32393430393531343931666361643831656232336361346331663439376662353735646230316631\n3165663238306636336463393631636633313537343635320a656164653836353933373866616339\n37376561663666323738383839316562313632346365613962323562633538323630653735613264\n6432343766326532650a376538623831356330383265313034326630343434343635343061613730\n36636239646162643762653135636632363762313763383766303061363630333165656430633662\n6635353763666130396339363732643062326336336336623036",
+  "passphrase": "test"
+}</code></pre>
+            </div>
+            <div class="mt-4">
+              <strong>Response Data:</strong>
+              <pre class="mt-2"><code>{
+  "result": "information to be encrypted by ansible vault",
+  "status": "success",
+  "msg": "Your data was successfully decrypted!"
+}</code></pre>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </section>
   </div>
 
-  <footer class="footer mt-5">
+  <footer class="footer-modern">
     <div class="container">
-      <p>Copyright © <%= new Date().getFullYear(); %> Ansible Vault Encryption/Decryption Tool</p>
+      <div class="row">
+        <div class="col-md-8">
+          <p class="mb-0">
+            <i class="fas fa-copyright me-2"></i>
+            Copyright © <%= new Date().getFullYear(); %> Ansible Vault Encryption/Decryption Tool
+          </p>
+        </div>
+        <div class="col-md-4 text-md-end">
+          <p class="mb-0">
+            <i class="fas fa-heart text-danger me-1"></i>
+            Made with love for DevOps
+          </p>
+        </div>
+      </div>
     </div>
   </footer>
 
-  <script src="https://code.jquery.com/jquery-3.4.1.min.js" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" crossorigin="anonymous"></script>
+  <!-- Bootstrap 5 JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- jQuery -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js" crossorigin="anonymous"></script>
+  <!-- Custom Scripts -->
   <script src='/js/download.js' crossorigin="anonymous"></script>
   <script src='/js/main.js' crossorigin="anonymous"></script>
+  
+  <!-- Donation Banner Script -->
+  <script>
+    function hideDonationBanner() {
+      const banner = document.getElementById('donationBanner');
+      if (banner) {
+        banner.style.transition = 'all 0.3s ease';
+        banner.style.transform = 'translateX(100%)';
+        banner.style.opacity = '0';
+        setTimeout(() => {
+          banner.style.display = 'none';
+        }, 300);
+        
+        // Save preference in localStorage
+        localStorage.setItem('donationBannerHidden', 'true');
+      }
+    }
+    
+    // Check if user has previously hidden the banner
+    document.addEventListener('DOMContentLoaded', function() {
+      const banner = document.getElementById('donationBanner');
+      if (banner && localStorage.getItem('donationBannerHidden') === 'true') {
+        banner.style.display = 'none';
+      }
+      
+      // Navigation menu active state
+      updateActiveNavItem();
+    });
+    
+    // Navigation active item highlighting
+    function updateActiveNavItem() {
+      const sections = document.querySelectorAll('section[id]');
+      const navLinks = document.querySelectorAll('.nav-link[href^="#"]');
+      
+      window.addEventListener('scroll', () => {
+        let current = '';
+        const scrollPos = window.scrollY + 120; // Account for fixed navbar
+        
+        sections.forEach(section => {
+          const sectionTop = section.offsetTop;
+          const sectionHeight = section.offsetHeight;
+          
+          if (scrollPos >= sectionTop && scrollPos < sectionTop + sectionHeight) {
+            current = section.getAttribute('id');
+          }
+        });
+        
+        navLinks.forEach(link => {
+          link.style.background = '';
+          link.style.color = 'rgba(255, 255, 255, 0.9)';
+          
+          if (link.getAttribute('href') === `#${current}`) {
+            link.style.background = 'rgba(255, 255, 255, 0.2)';
+            link.style.color = 'white';
+          }
+        });
+      });
+    }
+    
+    // Smooth scroll for navigation links
+    document.querySelectorAll('.nav-link[href^="#"]').forEach(link => {
+      link.addEventListener('click', function(e) {
+        e.preventDefault();
+        const targetId = this.getAttribute('href');
+        const targetSection = document.querySelector(targetId);
+        
+        if (targetSection) {
+          const navbarHeight = document.querySelector('.navbar').offsetHeight;
+          const targetPosition = targetSection.offsetTop - navbarHeight - 20;
+          
+          window.scrollTo({
+            top: targetPosition,
+            behavior: 'smooth'
+          });
+        }
+      });
+    });
+  </script>
 </body>
 
 </html>
