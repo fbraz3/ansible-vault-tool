@@ -29,6 +29,16 @@ const hideProgress = () => {
     $('#loading').hide();
 };
 
+// Force hide export buttons with !important
+const hideExportButtons = () => {
+    $('#response_holder .export_buttons').css('display', 'none !important');
+};
+
+// Show export buttons
+const showExportButtons = () => {
+    $('#response_holder .export_buttons').css('display', '');
+};
+
 // Modern notification function
 const showNotification = (message, type = 'success') => {
     const alertDiv = document.createElement('div');
@@ -71,7 +81,7 @@ $(document).ready(function () {
         showProgress();
         $('#response_holder').hide();
         $('#response_holder .response_text').hide();
-        $('#response_holder .export_buttons').hide();
+        hideExportButtons();
 
         let content = $('#content_text').val();
         let action = $(this).data('action');
@@ -100,17 +110,31 @@ $(document).ready(function () {
             data: data,
             success: function (data, status, xhr) {
                 if (data) {
-                    if (action == 'encrypt') last_action = 'encrypted';
-                    if (action == 'decrypt') last_action = 'decrypted';
-                    $('#response_holder .response_msg').html(`<i class="fas fa-check-circle text-success me-2"></i>${data.msg}`);
-                    if (data.result){
-                        $('#response_holder .export_buttons').show();
-                        $('#response_holder .response_text').html(data.result);
-                        $('#response_holder .response_text').show();
+                    // Check if the API response indicates success or failure
+                    if (data.status === 'success') {
+                        if (action == 'encrypt') last_action = 'encrypted';
+                        if (action == 'decrypt') last_action = 'decrypted';
+                        $('#response_holder .response_msg').html(`<i class="fas fa-check-circle text-success me-2"></i>${data.msg}`);
+                        $('#response_header_icon').removeClass('fa-exclamation-triangle text-danger').addClass('fa-check-circle text-success');
+                        if (data.result){
+                            showExportButtons();
+                            $('#response_holder .response_text').html(data.result);
+                            $('#response_holder .response_text').show();
+                        }
+                        showNotification(data.msg, 'success');
+                    } else {
+                        // API returned an error (status: 'fail')
+                        $('#response_holder .response_msg').html(`<i class="fas fa-exclamation-triangle text-danger me-2"></i>${data.msg}`);
+                        $('#response_header_icon').removeClass('fa-check-circle text-success').addClass('fa-exclamation-triangle text-danger');
+                        $('#response_holder .response_text').hide();
+                        hideExportButtons();
+                        showNotification(data.msg, 'danger');
                     }
-                    showNotification(data.msg, 'success');
                 } else {
                     $('#response_holder .response_msg').html('<i class="fas fa-exclamation-triangle text-danger me-2"></i>Unknown error');
+                    $('#response_header_icon').removeClass('fa-check-circle text-success').addClass('fa-exclamation-triangle text-danger');
+                    hideExportButtons();
+                    $('#response_holder .response_text').hide();
                     showNotification('Unknown error occurred', 'danger');
                 }
                 $('#response_holder').show();
@@ -128,10 +152,22 @@ $(document).ready(function () {
             },
             error: function (jqXhr, textStatus, errorMessage) {
                 $('#response_holder .response_msg').html(`<i class="fas fa-exclamation-triangle text-danger me-2"></i>${errorMessage}`);
+                $('#response_header_icon').removeClass('fa-check-circle text-success').addClass('fa-exclamation-triangle text-danger');
                 $('#response_holder .response_text').hide();
+                hideExportButtons();
                 $('#response_holder').show();
                 showNotification(errorMessage, 'danger');
                 hideProgress();
+                
+                // Scroll smoothly to the result section even for errors
+                const resultElement = document.getElementById('response_holder');
+                if (resultElement) {
+                    resultElement.scrollIntoView({ 
+                        behavior: 'smooth',
+                        block: 'start',
+                        inline: 'nearest'
+                    });
+                }
             }
         });
     });
