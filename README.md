@@ -1,9 +1,12 @@
+[![Docker Image](https://img.shields.io/docker/v/fbraz3/ansible-vault-tool?label=Docker%20Image&logo=docker&sort=semver)](https://hub.docker.com/r/fbraz3/ansible-vault-tool)
+[![Docker Pulls](https://img.shields.io/docker/pulls/fbraz3/ansible-vault-tool?logo=docker)](https://hub.docker.com/r/fbraz3/ansible-vault-tool)
+[![Image Size](https://img.shields.io/docker/image-size/fbraz3/ansible-vault-tool/latest?logo=docker)](https://hub.docker.com/r/fbraz3/ansible-vault-tool)
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/fbraz3/ansible-vault-tool)
+
 # Braz Ansible Vault Tool
 
 This is a simple online **Ansible Vault** encryption/decryption tool.
 You can encrypt or decrypt any information using the online interface or API tools provided.
-
-For more technical information, please visit our  [DeepWiki Page](https://deepwiki.com/fbraz3/ansible-vault-tool) (AI generated).
 
 ## Objective
 
@@ -35,6 +38,31 @@ The quickest way to get started is by using the online interface.
    docker-compose up -d
    ```
 3. Access the application at `http://localhost:3003`.
+
+### Pre-built Docker Images
+
+Ready-to-use Docker images are automatically built weekly and available on Docker Hub
+
+#### Quick Start with Docker
+```bash
+# Run directly with Docker
+docker run -p 3000:3000 fbraz3/ansible-vault-tool:latest
+
+#### Docker Compose Example
+```yaml
+version: '3.8'
+services:
+  ansible-vault-tool:
+    image: fbraz3/ansible-vault-tool:latest
+    ports:
+      - "3000:3000"
+    restart: unless-stopped
+```
+
+Available tags:
+- `latest` - Latest stable build from master branch
+- `YYYY.MM.DD` - Weekly builds with date tag
+- `master-<sha>` - Builds from specific commits
 
 ## Contribution
 Contributions are welcome! Feel free to open issues or submit pull requests to improve the project.

@@ -1,13 +1,19 @@
-version: "3"
-
 services:
   ansible-vault:
+    # Option 1: Build locally
     build:
       context: ..
       dockerfile: docker/Dockerfile
+    
+    # Option 2: Use pre-built image from Docker Hub (uncomment line below and comment build section above)
+    # image: fbraz3/ansible-vault-tool:latest
+    
     container_name: ansible-vault
+    
+    # Optional: Development volume mount
     # volumes:
     #   - ./..:/usr/src/app
+    
     ports:
      - "3003:3000"
     restart: unless-stopped
