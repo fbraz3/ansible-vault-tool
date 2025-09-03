@@ -36,6 +36,9 @@ jobs:
       run: |
         echo "Starting functionality tests..."
         
+        # Install jq for JSON parsing
+        sudo apt-get update && sudo apt-get install -y jq
+        
         # Start container in background
         docker run -d --name test-container -p 3000:3000 ansible-vault-tool:test
         
@@ -67,7 +70,8 @@ jobs:
         echo "Testing API encrypt..."
         api_response=$(curl -s -X POST http://localhost:3000/api \
           -d "action=encrypt&passphrase=testpass&content=hello world")
-        if echo "$api_response" | grep -q '"status":"success"'; then
+        echo "Encrypt response: $api_response"
+        if echo "$api_response" | jq -e '.status == "success"' > /dev/null; then
           echo "✅ API encrypt test passed"
         else
           echo "❌ API encrypt test failed"
@@ -77,19 +81,33 @@ jobs:
         
         # Test 4: API functionality - decrypt (using encrypted content from previous test)
         echo "Testing API decrypt..."
-        encrypted_content=$(echo "$api_response" | grep -o '"result":"[^"]*"' | cut -d'"' -f4)
-        if [ -n "$encrypted_content" ]; then
+        encrypted_content=$(echo "$api_response" | jq -r '.result')
+        if [ -n "$encrypted_content" ] && [ "$encrypted_content" != "null" ]; then
+          echo "Encrypted content extracted: ${encrypted_content:0:50}..."
           decrypt_response=$(curl -s -X POST http://localhost:3000/api \
-            -d "action=decrypt&passphrase=testpass&content=$encrypted_content")
-          if echo "$decrypt_response" | grep -q '"status":"success"' && echo "$decrypt_response" | grep -q "hello world"; then
-            echo "✅ API decrypt test passed"
+            -d "action=decrypt" \
+            -d "passphrase=testpass" \
+            -d "content=$encrypted_content")
+          echo "Decrypt response: $decrypt_response"
+          
+          # Check if decrypt was successful and returned original content
+          if echo "$decrypt_response" | jq -e '.status == "success"' > /dev/null; then
+            decrypted_content=$(echo "$decrypt_response" | jq -r '.result')
+            if [ "$decrypted_content" = "hello world" ]; then
+              echo "✅ API decrypt test passed"
+            else
+              echo "❌ API decrypt test failed - content mismatch"
+              echo "Expected: 'hello world', Got: '$decrypted_content'"
+              exit 1
+            fi
           else
-            echo "❌ API decrypt test failed"
+            echo "❌ API decrypt test failed - bad status"
             echo "Response: $decrypt_response"
             exit 1
           fi
         else
           echo "❌ Could not extract encrypted content for decrypt test"
+          echo "Encrypted content: '$encrypted_content'"
           exit 1
         fi
         
@@ -97,7 +115,7 @@ jobs:
         echo "Testing API error handling..."
         error_api_response=$(curl -s -X POST http://localhost:3000/api \
           -d "action=decrypt&passphrase=wrongpass&content=invalid")
-        if echo "$error_api_response" | grep -q '"status":"fail"'; then
+        if echo "$error_api_response" | jq -e '.status == "fail"' > /dev/null; then
           echo "✅ API error handling test passed"
         else
           echo "❌ API error handling test failed"
