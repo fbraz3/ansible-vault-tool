@@ -14,7 +14,7 @@ router.post('/', function(req, res, next) {
   res.setHeader('Content-Type', 'application/json; charset=utf-8');
   const v = new Vault({ password: req.body.passphrase });
   if (!req.body.passphrase || req.body.passphrase == '' || !req.body.content || req.body.content == '') {
-    res.status(200).json({
+    return res.status(200).json({
       'status': 'fail',
       'msg': 'Please specify all the parameters! The required parameters are: passphrase, content and action (encrypt or decrypt)'
     });
